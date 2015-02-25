@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Resumen de la XPWeek</title>
+
+		<meta name="description" content="Resumen de la XPWeek. Clean Code, TDD,
+        Grunt, Travis">
+		<meta name="author" content="Sergio Ruiz (@serginator)">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+    <section>
+        <h1>Resumen XPWeek</h1>
+<div>Talleres de Clean Code de <a href="http://twitter.com/carlosble">Carlos Blé</a> e Integración Continua en JavaScript de <a href="http://twitter.com/eamodeorubio">Enrique Amodeo</a>.</div>
+<figure>Por <a href="http://twitter.com/serginator">Sergio Ruiz</a>
+</figure>
+
+</section>
+        <section>
+            <section>
+                <h2>Clean Code</h2>
+<div>
+<a href="http://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">
+<img src="http://ecx.images-amazon.com/images/I/41znMZniZ1L._.jpg" style="">
+</a>
+</div>
+</section>
+                <section>
+                    <h2>Principios básicos</h2>
+<br>
+<div>
+<ul>
+<li>Código fácil de leer, expresivo, sencillo</li>
+<li>Hace una única cosa</li>
+<li>Sin duplicidad</li>
+<li>Probado mediante tests automáticos</li>
+<li>Abstrae elementos similares</li>
+<li>Usa el menor número de elementos posibles</li>
+<li>Código mantenible</li>
+</ul>
+</div>
+
+
+</section>
+                    <section>
+                        <h2>Nombres</h2>
+<div>Buenos nombres, descriptivos y claros</div>
+<div>
+<br>
+</div>
+<div style="width: 49%; float: left;">
+    <pre>
+                        <code>var a, //más info...
+colorcito, //poco descrpitivo
+bsa; //no me dice nada
+</code>
+                    </pre>CACA
+</div>
+<div style="width: 49%; float: left;">
+    <pre>
+                    <code>var x, // matemáticas, ok
+azul, // sin dudas
+borrarSlideAnterior; //bien</code>
+                </pre>BIEN
+</div>
+
+
+</section>
+                <section>
+                    <h2>Funciones</h2>
+<div>
+Se puede inferir su comportamiento de un vistazo.
+</div>
+<div>
+<ul>
+<li>
+<span style="text-align: center;">Cortas</span>
+</li>
+<li>
+<span style="text-align: center;">Hacen una única cosa</span>
+</li>
+<li>
+<span style="text-align: center;">Usar buenos nombres</span>
+</li>
+<li>
+<span style="text-align: center;">No pasar booleanos como parámetros (hacen que la función haga como mínimo dos cosas)</span>
+</li>
+</ul>
+</div>
+<div style="width: 49%; float: left;">
+    <pre>
+                    <code>var x = function(a, b) {
+          return a + b;
+} </code>
+                </pre>CACA
+</div>
+<div style="width: 49%; float: left;">
+    <pre>
+                <code>var suma = function(a, b) {
+          return a + b;
+}</code>
+            </pre>BIEN
+</div>
+</section>
+            <section>
+                <h2>Comentarios</h2>
+<div>
+<ul>
+<li>Si el código está bien escrito debería ser autoexplicativo</li>
+<li>Para explicar el algoritmo utilizado</li>
+<li>TODOs</li>
+<li>Avisar de algo, Warnings.</li>
+<li>JavaDoc para generar documentación</li>
+</ul>
+</div>
+
+</section>
+                <section>
+                    <h2>Formateo</h2>
+<div>
+<ul>
+<li>Legibilidad del código</li>
+<li>Seguir unas guías de estilo (más hincapié sobre todo en trabajo en equipo)</li>
+<li>Da igual cuáles sean, con tal de que todos las sigan</li>
+<li>Da uniformidad al código</li>
+<li>Dependencia Top-Down (cuidado con el hoisting)</li>
+</ul>
+</div>
+</section>
+                    <section>
+                        <h2>Objetos/Estructuras</h2>
+<div>Hay que pensar en qué es necesario utilizar, no tienen que ser siempre objetos o siempre estructuras de datos.</div>
+<br>
+<br>
+<div style="text-align: left;">Demeter's Law: Un método <i>f</i> de una clase <i>C</i> debería llamar sólo a:</div>
+<div style="text-align: left;">
+<ul>
+<li>Métodos de <i>C</i>
+</li>
+<li>Métodos de objetos creados con <i>f</i>
+</li>
+<li>Métodos de objetos pasados como argumentos a <i>f</i>
+</li>
+<li>Campos y propiedades del propio objeto</li>
+</ul>
+</div>
+</section>
+                        <section>
+                            <h2>Manejo de Errores</h2>
+<div>
+<ul>
+<li>Usar Excepciones que definan bien el error en lugar de códigos de retorno</li>
+<li>Evitar pasar/devolver <i>null</i>, así prevenimos comprobaciones con <i>null</i>.</li>
+</ul>
+</div>
+</section>
+                            <section>
+                                <h2>Fronteras</h2>
+<div>Definir de forma clara y concisa la separación entre nuestro código y el código de terceros (librerías, componentes...)</div>
+</section>
+                                <section>
+                                    <h2>TDD</h2>
+<br>
+<div>
+<ol>
+<li>No se escribe código de producción hasta que no haya un test fallido que arreglar</li>
+<li>No se debe escribir más de un test para que éste falle</li>
+<li>No se escribe más código de producción del necesario para pasar el test.</li>
+</ol>
+</div>
+</section>
+                                    <section>
+                                        <h2>TDD (2)</h2>
+<div>
+<ul>
+<li>Mantener los tests limpios</li>
+<li>Permiten lanzarse a refactorizar sin miedo</li>
+<li>Un assert (o los mínimos necesarios) por test, que va directamente relacionado con...</li>
+<li>Un único concepto por test</li>
+</ul>
+</div>
+</section>
+                                        <section>
+                                            <h2>TDD (3)</h2>
+<div>Las reglas <b>FIRST</b>
+<br>
+<ul>
+<li>
+<b>Fast</b>: ejecución rápida y a menudo</li>
+<li>
+<b>Independent</b>: Un test no debe depender de uno anterior</li>
+<li>
+<b>Repeteable</b>: Se deben poder realizar en cualquier entorno</li>
+<li>
+<b>Self-Validating</b>: El test debe decir si se cumple o no</li>
+<li>
+<b>Timely</b>: Escribirlos en el momento adecuado, justo antes del de producción</li>
+</ul>
+</div>
+</section>
+                                            <section>
+                                                <h2>Clases</h2>
+<div>
+<ul>
+<li>Deben ser pequeñas</li>
+<li>Principio de responsabilidad única: "Una clase debe tener una y solo una única causa por la cual puede ser modificada"</li>
+<li>Fácil de cambiar</li>
+</ul>
+</div>
+</section>
+                                                <section>
+                                                    <h2>Sistemas</h2>
+<div>
+<ul>
+<li>Reconocer las distintas responsabilidades del sistema.</li>
+<li>Empezar por lo pequeño</li>
+<li>Añadir <i>features</i> después</li>
+</ul>
+</div>
+</section>
+                                                    <section>
+                                                        <h2>Emergencia</h2>
+<div>4 reglas de <b>Kent Beck</b>
+</div>
+<div>
+<ol>
+<li>Ejecutar TODOS los tests</li>
+<li>Eliminar la duplicidad</li>
+<li>Expresar la intención del programador</li>
+<li>Minimizar número de clases y métodos</li>
+</ol>
+</div>
+</section>
+                                                        <section>
+                                                            <h2>Concurrencia</h2>
+<div>
+<ul>
+<li>Mejora el rendimiento</li>
+<li>Es compleja de manejar</li>
+<li>Mantener los bloques pequeños</li>
+<li>No compartir objetos (podemos liarla fina)</li>
+<li>Errores dificilmente reproducibles...</li>
+</ul>
+</div>
+</section>
+                                                            <section>
+                                                                <h2>En resumen</h2>
+<div>
+<ul>
+<li>
+<span style="text-align: center;">Empezar con código sucio e ir limpiándolo</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Mantenerlo todo pequeño</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Mantener código legible</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Autoexplicativo</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Tests</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Interfaces, clases abstractas, OO</span>
+</li>
+</ul>
+</div>
+</section>
+                                                                <section>
+                                                                    <h2>Documentación</h2>
+<br>
+<h3 style="text-align: left;">
+<span>TDD</span>
+<br>
+</h3>
+<div>
+<ul>
+<li>
+<span style="text-align: center;">Diseño Ágil con TDD - Carlos Blé</span>
+</li>
+<li>
+<span style="text-align: center;">Test-Driven JavaScript Development - Christian Johansen</span>
+</li>
+<li>
+<span style="text-align: center;">Testable JavaScript - Mark Ethan Trostler</span>
+</li>
+</ul>
+</div>
+<br>
+<h3 style="text-align: left;">Clean Code</h3>
+<p>
+</p>
+<ul>
+<li>
+<span style="text-align: center;">Clean Code - Robert C. Martin</span>
+</li>
+<li>
+<span style="text-align: center;">Vídeos siguiendo el orden del libro: </span>
+<a href="http://www.cleancoders.com" style="text-align: center;">www.cleancoders.com</a>
+</li>
+</ul>
+</section>
+                                                                </section>
+                                                                <section>
+                                                                    <h2>GIT para TDD</h2>
+<div>
+<ul>
+<li>Test en rojo</li>
+<li>git ci -m "RED: 'nombre del test'"</li>
+<li>Test en verde</li>
+<li>git ci -m "GREEN: 'nombre del test"</li>
+<li>Refactor</li>
+<li>git ci -m "RED/GREEN: refactor de tal"</li>
+</ul>
+</div>
+</section>
+                                                                    <section>
+                                                                        <section>
+                                                                            <h2>Integración Continua</h2>
+<div>
+<img src="http://www.codejobs.biz/www/lib/files/images/7413c21b1904075.png" style="height: 150px;">
+<br>
+</div>
+<div>
+    <img src="http://i.imgur.com/4773D.jpg" style="height: 150px;">
+<br>
+</div>
+<div>
+    <img src="https://blog.openshift.com/wp-content/uploads/imported/travis-logo.png" style="height: 150px;">
+<br>
+</div>
+
+
+
+</section>
+                                                                            <section>
+                                                                                <h2>Node.js</h2>
+<div>
+<ul>
+<li>
+    <span style="text-align: center;">Lo utilizaremos por sus módulos NPM</span>
+</li>
+</ul>
+<br>
+<div>
+<span>Versionado de paquetes:</span>
+<br>
+</div>
+<br>
+<div>Semver: R.M.B -&gt; Release(Major).Minor.Bugs</div>
+</div>
+</section>
+                                                                                <section>
+                                                                                    <h2>NPM</h2>
+<div>
+<ul>
+<li>npm search grunt</li>
+<li>npm info grunt -&gt; info sobre un paquete</li>
+<li>npm list -&gt; listado de paquetes instalados</li>
+<li>npm list -g -&gt; listado de globales instalados</li>
+<li>npm install grunt -&gt; instala grunt localmente</li>
+<li>npm install -g grunt -&gt; instala grunt globalmente</li>
+<li>npm install &lt;nombre&gt; --save-dev -&gt; guarda como dependencia dev en el package.json</li>
+<li>npm install &lt;nombre&gt; --save -&gt; guarda como dependencia en el package.json</li>
+<li>npm init -&gt; genera un package.json inicial</li>
+<li>npm install -&gt; instala lo que le diga el package.json</li>
+</ul>
+</div>
+</section>
+                                                                                    <section>
+                                                                                        <h2>package.json</h2>
+<div>
+    <pre>
+                                                                                        <code>{
+  "name": "test",
+  "version": "0.0.1",
+  "description": "the description of the app",
+  "author": "Sergio Ruiz",
+  "license": "MIT",
+  "readmeFilename": "README.ms",
+  "keywords": [
+    "test",
+    "grunt",
+    "ci"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/serginator/test.git"
+  },
+  "scripts": {
+    "test": "grunt build"
+  },
+  "dependencies": {
+    "express": "&gt;= 3.0.0",
+    "jade": "&gt;= 0.26.3",
+    "socket.io": "&gt;=0.8.7"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}</code>
+                                                                                    </pre>
+</div>
+<div>
+<ul>
+<li style="text-align: left;">
+<span style="text-align: center;">El script genérico "test" se puede lanzar con <i>npm test</i>
+</span>
+</li>
+<li style="text-align: left;">
+<span style="text-align: center;">Explicación chula <a href="http://package.json.nodejitsu.com/">aquí</a> </span>
+</li>
+</ul>
+</div>
+
+
+
+
+</section>
+                                                                                    <section>
+                                                                                        <h2>Grunt</h2>
+<div>
+    <ul>
+<li>Task runner, como Ant.</li>
+        <li>Para instalarlo...</li>
+    </ul>
+<div style="text-align: left;">
+        <pre>
+                                                                                        <code>npm install -g grunt-cli #instala el intérprete de forma global
+npm instal grunt --save-dev #instala grunt en el proyecto actual</code>
+                                                                                    </pre>
+    </div>
+</div>
+<div>
+<ul>
+    <li style="text-align: center;">La configuración de grunt va en un Gruntfile.js en la raíz del proyecto, junto al package.json</li>
+</ul>
+</div>
+</section>
+                                                                                    <section>
+                                                                                        <h2>Gruntfile.js</h2>
+<div>
+    <pre>
+                                                                                        <code>"use strict";
+
+module.exports = function(grunt) {
+
+  var SRC_DIR = 'src/',
+    SCRIPTS_DIR = SRC_DIR + 'lib/',
+    ALL_STYLES = SRC_DIR + 'css/**/*.css',
+    TESTS_DIR = SRC_DIR + 'test/',
+    UNIT_TESTS_FILES = TESTS_DIR + 'unit/**/*.js',
+    BDD_TESTS_FILES = TESTS_DIR + 'bdd/*.js',
+    OUTPUT_DIR = 'dist/';
+
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    csslint: {
+      all: {
+        files: {
+          src: [ALL_STYLES]
+        }
+      }
+    },
+    jshint: {
+      options: {
+        // Neutral environment
+        browser: false,
+        node: false,
+        jquery: false,
+        strict: true,
+        globalstrict: true,
+        bitwise: true,
+        camelcase: true,
+        curly: false,
+        eqeqeq: true,
+        forin: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        nonew: true,
+        undef: true,
+        unused: true,
+        white: false,
+        trailing: false,
+        maxparams: 3,
+        maxstatements: 10,
+        maxdepth: 2,
+        maxcomplexity: 5
+      },
+      core: {
+        options: {
+          globals: {
+            module: true,
+            setTimeout: true, // TODO: fixme!
+            localStorage: true // TODO: fixme!
+          }
+        },
+        files: {
+          src: [SCRIPTS_DIR + 'core/**/*.js']
+        }
+      },
+      jquery: {
+        options: {
+          browser: true,
+          jquery: true,
+          globals: {
+            module: true,
+            require: true,
+            console: true
+          }
+        },
+        files: {
+          src: [SCRIPTS_DIR + 'zepto_jquery/**/*.js']
+        }
+      },
+      knockout: {
+        options: {
+          browser: true,
+          globals: {
+            module: true,
+            require: true,
+            console: true
+          }
+        },
+        files: {
+          src: [SCRIPTS_DIR + 'knockout/**/*.js']
+        }
+      },
+      gruntfile: {
+        options: {
+          node: true,
+          maxstatements: false
+        },
+        files: {
+          src: ['Gruntfile.js']
+        }
+      },
+      unit: {
+        options: {
+          node: true,
+          expr: true,
+          latedef: false,
+          globals: {
+            describe: true,
+            beforeEach: true,
+            afterEach: true,
+            xdescribe: true,
+            context: true,
+            it: true,
+            xit: true
+          }
+        },
+        files: {
+          src: [UNIT_TESTS_FILES]
+        }
+      },
+      bdd: {
+        options: {
+          browser: true,
+          jquery: true,
+          expr: true,
+          maxparams: 5, // TODO: fixme!
+          maxdepth: 3, // TODO: fixme!
+          maxstatements: 20, // TODO: fixme!
+          globals: {
+            describe: true,
+            beforeEach: true,
+            afterEach: true,
+            xdescribe: true,
+            context: true,
+            it: true,
+            xit: true,
+            chai: true,
+            bdd: true,
+            console: true,
+            before: true,
+            mocha: true
+          }
+        },
+        files: {
+          src: [BDD_TESTS_FILES]
+        }
+      }
+    },
+    watch: {
+      gruntfile: {
+        files: ['Gruntfile.js'],
+        tasks: ['jshint:gruntfile']
+      },
+      bdd: {
+        files: [BDD_TESTS_FILES],
+        tasks: ['jshint:bdd']
+      },
+      unit: {
+        files: [UNIT_TESTS_FILES],
+        tasks: ['jshint:unit']
+      },
+      core: {
+        files: [SCRIPTS_DIR + 'core/**/*.js'],
+        tasks: ['jshint:core', 'simplemocha:dev']
+      },
+      jquery: {
+        files: [SCRIPTS_DIR + 'zepto_jquery/**/*.js'],
+        tasks: ['jshint:jquery', 'simplemocha:dev']
+      },
+      knockout: {
+        files: [SCRIPTS_DIR + 'knockout/**/*.js'],
+        tasks: ['jshint:knockout', 'simplemocha:dev']
+
+      },
+      styles: {
+        files: [ALL_STYLES],
+        tasks: ['csslint']
+      }
+    },
+    simplemocha: {
+      options: {
+        timeout: 500, // Unit tests
+        ui: 'bdd'
+      },
+      dev: {
+        options: {
+          reporter: 'dot'
+        },
+        files: {
+          src: [UNIT_TESTS_FILES]
+        }
+      }
+    },
+    clean: [OUTPUT_DIR, 'dist/&lt;%= pkg.name %&gt;-&lt;%= pkg.version %&gt;.zip'],
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          cwd: SRC_DIR,
+          src: ['img/**', '**/!(initial_*).html'],
+          dest: OUTPUT_DIR
+        }, {
+          expand: true,
+          cwd: './',
+          src: ['vendor/**/!(almond.js)'],
+          dest: OUTPUT_DIR + 'js/'
+        }]
+      }
+    },
+    cssmin: {
+      options: {
+        report: 'gzip'
+      },
+      minify: {
+        src: [ALL_STYLES],
+        dest: "dist/css/&lt;%= pkg.name %&gt;.min.css"
+      }
+    },
+    requirejs: {
+      options: {
+        baseUrl: SCRIPTS_DIR,
+        cjsTranslate: true,
+        useStrict: true,
+        preserveLicenseComments: false,
+        generateSourceMaps: true,
+        optimize: 'uglify2',
+        include: ['../../vendor/almond.js'] // runtime de requirejs
+      },
+      zeptoJQuery: {
+        options: {
+          name: 'zepto_jquery/main',
+          insertRequire: ['zepto_jquery/main'],
+          out: "dist/js/&lt;%= pkg.name %&gt;-zepto_jquery.min.js",
+          uglify2: {
+            report: 'gzip',
+            mangle: {
+              except: ['jQuery', 'Zepto']
+            }
+          }
+        }
+      },
+      ko: {
+        options: {
+          name: 'knockout/main',
+          insertRequire: ['knockout/main'],
+          out: "dist/js/&lt;%= pkg.name %&gt;-ko.min.js",
+          uglify2: {
+            report: 'gzip',
+            mangle: {
+              except: ['ko']
+            }
+          }
+        }
+      }
+    },
+    karma: {
+      options: {
+        runnerPort: 9999,
+        configFile: 'karma.conf.js'
+      },
+      dev: {
+        singleRun: true,
+        reporters: ['dots'],
+        browsers: ['Chrome']
+      },
+      ci: {
+        singleRun: true,
+        reporters: ['dots', 'junit'],
+        browsers: ['PhantomJS', 'Firefox']
+      }
+    },
+    compress: {
+      main: {
+        options: {
+          archive: 'dist/&lt;%= pkg.name %&gt;-&lt;%= pkg.version %&gt;.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['**'],
+          dest: 'todo/'
+        }]
+      },
+      ko: {
+        options: {
+          archive: 'dist/&lt;%= pkg.name %&gt;-ko-&lt;%= pkg.version %&gt;.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['todo_with_knockout.html', 'css/*.css', 'img/**', 'js/vendor/knockout*.js', 'js/todo-ko.min.js']
+        }]
+      },
+      jquery: {
+        options: {
+          archive: 'dist/&lt;%= pkg.name %&gt;-jquery-&lt;%= pkg.version %&gt;.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['todo_with_jquery.html', 'css/*.css', 'img/**', 'js/vendor/jquery*.js', 'js/todo-zepto_jquery.min.js']
+        }]
+      },
+      zepto: {
+        options: {
+          archive: 'dist/&lt;%= pkg.name %&gt;-zepto-&lt;%= pkg.version %&gt;.zip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['todo_with_zepto.html', 'css/*.css', 'img/**', 'js/vendor/zepto*.js', 'js/todo-zepto_jquery.min.js']
+        }]
+      }
+    }
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-simple-mocha');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-compress');
+
+
+  grunt.registerTask('default', [
+    'csslint',
+    'jshint',
+    'simplemocha:dev']);
+
+  grunt.registerTask('dist', [
+    'clean',
+    'cssmin',
+    'requirejs',
+    'copy']);
+
+  grunt.registerTask('build', [
+    'default',
+    'dist',
+    'karma:ci',
+    'compress:ko',
+    'compress:jquery',
+    'compress:zepto']);
+};
+</code>
+                                                                                    </pre>
+</div>
+
+
+</section>
+                                                                                    <section>
+                                                                                        <h2>Grunt Wildcards</h2>
+<div>
+<ul>
+<li>? -&gt; una letra</li>
+<li>* -&gt; 0 o más letras</li>
+<li>** -&gt; cualquier cosa (ej: src/**/*.js)</li>
+<li>! -&gt; menos (ej: src/**/!(experimento_*).js)</li>
+<li>{} -&gt; uno u otro (ej: src/**/*.{js,html})</li>
+</ul>
+</div>
+</section>
+                                                                                        <section>
+                                                                                            <h2>Travis-ci</h2>
+<div>
+<ul>
+<li>
+<span style="text-align: center;">Plataforma de integración continua gratuita y online</span>
+</li>
+<li>
+<a href="http://www.travis-ci.org" style="text-align: center;">http://www.travis-ci.org</a>
+</li>
+<li>
+<span style="text-align: center;">Nos permite lanzar tareas de proyectos que tengamos alojados en GitHub</span>
+</li>
+<li>
+<span style="text-align: center;">Hay versión para empresas, y version Open Source para montarlo en tu servidor (y no tener que estar ligado a GitHub)</span>
+</li>
+<li>
+<span style="text-align: center;">Se configura con un fichero <i>.travis.yml</i>
+</span>
+</li>
+</ul>
+</div>
+</section>
+                                                                                            <section>
+                                                                                                <h2>.travis.yml</h2>
+<div>
+    <pre>
+                                                                                                <code>languaje: node_js
+node_js:
+  - 0.10
+before_install:
+  - npm install -g grunt-cli
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+notifications:
+  email:
+    - serginator@gmail.com<br>
+</code>
+                                                                                            </pre>
+</div>
+<div>
+<ul>
+    <li>Nos permite instalar y hacer cosas en cuatro fases: <i>before_install</i>, <i>after_install</i>, <i>before_script</i>, <i>after_script</i>
+</li>
+</ul>
+</div>
+
+</section>
+                                                                                        </section>
+                                                                                        <section>
+                                                                                            <h2>
+    <br>
+</h2>
+<h2>Y fin...</h2>
+</section>
+                                                                                            <section>
+                                                                                                <h2>
+    <br>
+</h2>
+<h2>¿Preguntas?</h2>
+</section>
+                                                                                            </div>
+
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
